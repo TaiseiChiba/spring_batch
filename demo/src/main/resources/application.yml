@@ -1,0 +1,3 @@
+spring:
+  profiles:
+    active: ma${SPING_PROFILES_ACTIVE:local}

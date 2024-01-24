@@ -6,8 +6,11 @@ import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.item.ExecutionContext;
 import org.springframework.batch.repeat.RepeatStatus;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
+import com.example.demo.property.SampleProperty;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,6 +24,9 @@ public class HelloTasklet implements Tasklet {
 
     @Value("#{jobParameters['option1']}")
     private Integer option1;
+
+    @Autowired
+    private SampleProperty sampleProperty;
 
     @Override
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
@@ -39,6 +45,9 @@ public class HelloTasklet implements Tasklet {
         // jobParametersの確認
         log.info("requier1:{}", require1);
         log.info("option1:{}", option1);
+
+        // プロパティの表示
+        log.info("sample.propety={}", sampleProperty.getSampleProperty());
 
         return RepeatStatus.FINISHED;
     }
